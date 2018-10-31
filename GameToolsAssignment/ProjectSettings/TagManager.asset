@@ -21,6 +21,7 @@ TagManager:
   - Diamond
   - Guard
   - CamChange
+  - Tele
   layers:
   - Default
   - TransparentFX
