@@ -16,23 +16,23 @@ public class LastGuardsNormalMovement : MonoBehaviour {
     {
         if (other.tag == "WP5")
         {
-            m_guardAnim.SetFloat("Forward", 0);
-            m_guardAnim.SetFloat("Turn", -1);
-        }
-        if (other.tag == "WP6")
-        {
             m_guardAnim.SetFloat("Forward", -1);
             m_guardAnim.SetFloat("Turn", 0);
         }
-        if (other.tag == "WP7")
+        if (other.tag == "WP6")
         {
             m_guardAnim.SetFloat("Forward", 0);
             m_guardAnim.SetFloat("Turn", 1);
         }
-        if (other.tag == "WP8")
+        if (other.tag == "WP7")
         {
             m_guardAnim.SetFloat("Forward", 1);
             m_guardAnim.SetFloat("Turn", 0);
+        }
+        if (other.tag == "WP8")
+        {
+            m_guardAnim.SetFloat("Forward", 0);
+            m_guardAnim.SetFloat("Turn", -1);
         }
     }
 
