@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 public class DoorOpen : MonoBehaviour {
     [SerializeField] private GameObject m_theDoor;
     [SerializeField] private Canvas m_myCanvas;
     [SerializeField] private GameObject m_theGuard;
+    [SerializeField] private CinemachineVirtualCamera m_playerCam;
+    [SerializeField] private CinemachineVirtualCamera m_doorCam;
     private Animator m_eAnim;
     private Animator m_doorAnim;
     private Animator m_guardAnim;
@@ -23,6 +26,8 @@ public class DoorOpen : MonoBehaviour {
         if(m_inTrigger)
         {
             m_eAnim.SetBool("FadingIn", true);
+            m_playerCam.enabled = false;
+            m_doorCam.enabled = true;
             if(Input.GetKeyDown("e"))
             {
                 StartCoroutine(doorOpeningAndClosing());
