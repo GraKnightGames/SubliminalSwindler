@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour {
     private Rigidbody m_rb;
-    private float m_force;
+    [SerializeField] private float m_force;
 	// Use this for initialization
 	void OnEnable () {
         m_rb = GetComponent<Rigidbody>();
-        m_rb.AddForce(Vector3.forward * m_force);
+        m_rb.AddForce(transform.forward * m_force);
+        StartCoroutine(bulletKill());
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
+    }
+    IEnumerator bulletKill()
+    {
+        yield return new WaitForSeconds(2.0f);
+        Destroy(this.gameObject);
     }
 }

@@ -19,7 +19,10 @@ public class GuardPlayerControl : MonoBehaviour {
     {
         if(Input.GetKey(KeyCode.E))
         {
-            m_anim.SetBool("isFiring", true);
+            if(MindControl.control)
+            {
+                m_anim.SetBool("isFiring", true);
+            }
         }
         else
         {
