@@ -17,8 +17,8 @@ public class Timer : MonoBehaviour
     {
         if (m_text != null)
         {
-            m_time = 180;
-            m_text.text = "Time Left: 20:00:000";
+            m_time = 120;
+            m_text.text = "Time Left: 2:00";
             InvokeRepeating("UpdateTime", 0.0f, 0.01667f);
         }
     }
@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour
     {
         if (m_text != null)
         {
-            m_time -= Time.deltaTime * 0.5f;
+            m_time -= Time.deltaTime;
             string minutes = Mathf.Floor(m_time / 60).ToString("00");
             string seconds = (m_time % 60).ToString("00");
             m_text.text = minutes + ":" + seconds;
