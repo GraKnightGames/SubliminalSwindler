@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GuardPlayerControl : MonoBehaviour {
     private Animator m_anim;
-
+    [SerializeField] private AudioSource m_gunSFX;
     void Start()
     {
         m_anim = GetComponent<Animator>();
@@ -21,11 +21,13 @@ public class GuardPlayerControl : MonoBehaviour {
         {
             if(MindControl.control)
             {
+                m_gunSFX.Play();
                 m_anim.SetBool("isFiring", true);
             }
         }
         else
         {
+            m_gunSFX.Stop();
             m_anim.SetBool("isFiring", false);
         }
     }

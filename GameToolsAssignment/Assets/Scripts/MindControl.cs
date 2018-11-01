@@ -102,6 +102,7 @@ public class MindControl : MonoBehaviour {
         m_guardAnim.SetFloat("Turn", 0);
         m_guardAnim.SetBool("BeingControlled", false);
         m_playerAnim.SetBool("Controlling", false);
+        m_guardAnim.SetBool("isFiring", false);
         m_guardNorm.enabled = true;
         yield return new WaitForSeconds(2.418f);
         m_guardAnim.SetFloat("Forward", 1);

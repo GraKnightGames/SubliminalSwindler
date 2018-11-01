@@ -13,7 +13,10 @@ public class BulletMovement : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        if(other.tag == "Guard" || other.tag == "LastGuard")
+        {
+            Destroy(other.gameObject);
+        }
     }
     IEnumerator bulletKill()
     {
