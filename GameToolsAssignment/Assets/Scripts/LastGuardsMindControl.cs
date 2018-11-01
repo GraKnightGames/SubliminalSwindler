@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-public class MindControl : MonoBehaviour {
+public class LastGuardsMindControl : MonoBehaviour {
     private GameObject player;
     private PlayerMovement m_playerMoveScript;
-    private GuardNormalMovement m_guardNorm;
+    private LastGuardsNormalMovement m_guardNorm;
     public static bool control;
     private bool m_inTrigger;
     private ParticleSystem m_part;
@@ -19,7 +19,8 @@ public class MindControl : MonoBehaviour {
     [SerializeField] private AudioSource m_mcAudio;
     [SerializeField] private Material mindControlIndMat;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         waitTime = 10.0f;
         player = GameObject.FindGameObjectWithTag("Player");
         m_part = GetComponentInChildren<ParticleSystem>();
@@ -27,13 +28,13 @@ public class MindControl : MonoBehaviour {
         m_playerAnim = player.GetComponent<Animator>();
         m_guardAnim = GetComponent<Animator>();
         m_guard = GetComponent<GuardPlayerControl>();
-        m_guardNorm = GetComponent<GuardNormalMovement>();
+        m_guardNorm = GetComponent<LastGuardsNormalMovement>();
         m_guard.enabled = false;
         m_guardNorm.enabled = true;
         m_inTrigger = false;
         guardCam.enabled = false;
         m_part.Pause();
-	}
+    }
 
     private void Update()
     {
@@ -44,20 +45,20 @@ public class MindControl : MonoBehaviour {
             m_playerAnim.SetBool("Controlling", true);
             m_guard.Move(m_turn, m_forward);
         }
-       else if(!control)
+        else if (!control)
         {
             m_playerAnim.SetBool("Controlling", false);
         }
-       if(m_inTrigger)
+        if (m_inTrigger)
         {
-            mindControlIndMat.color = new Color(0.9f,0,0,0.5f);
+            mindControlIndMat.color = new Color(0.9f, 0, 0, 0.5f);
             if (Input.GetKeyDown("m"))
             {
                 print("Start Controlling");
                 StartCoroutine(controlling());
             }
         }
-       else if (!m_inTrigger)
+        else if (!m_inTrigger)
         {
             mindControlIndMat.color = new Color(1, 1, 1, 0.5f);
         }
@@ -107,4 +108,4 @@ public class MindControl : MonoBehaviour {
         m_guardAnim.SetFloat("Forward", 1);
         m_guardAnim.SetFloat("Turn", 0.5f);
     }
-    }
+}

@@ -15,5 +15,16 @@ public class GuardPlayerControl : MonoBehaviour {
         m_anim.SetFloat("Turn", turn);
         m_anim.SetFloat("Forward", forward);
     }
+    private void Update()
+    {
+        if(Input.GetKey(KeyCode.E))
+        {
+            m_anim.SetBool("isFiring", true);
+        }
+        else
+        {
+            m_anim.SetBool("isFiring", false);
+        }
+    }
 }
 

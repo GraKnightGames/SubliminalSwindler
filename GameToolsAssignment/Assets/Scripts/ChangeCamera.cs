@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 public class ChangeCamera : MonoBehaviour
 {
+    [SerializeField] private MindControl m_mcScript;
     [SerializeField] private CinemachineVirtualCamera inCam;
     [SerializeField] private CinemachineVirtualCamera outCam;
     private void Start()

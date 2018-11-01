@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private Text m_text;
     private float m_time;
+    [SerializeField] Animator fadeAnim;
     void Start()
     {
             StartCoundownTimer();
@@ -30,5 +32,16 @@ public class Timer : MonoBehaviour
             string seconds = (m_time % 60).ToString("00");
             m_text.text = minutes + ":" + seconds;
         }
+        if (m_time <= 0)
+        {
+            m_time = 0;
+            StartCoroutine(FadeToLose());
+        }
+    }
+    IEnumerator FadeToLose()
+    {
+        fadeAnim.SetBool("FadeIn", true);
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.LoadScene("Lose");
     }
 }
