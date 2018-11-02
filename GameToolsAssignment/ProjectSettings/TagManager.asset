@@ -22,6 +22,7 @@ TagManager:
   - Guard
   - CamChange
   - Tele
+  - Detector
   layers:
   - Default
   - TransparentFX
