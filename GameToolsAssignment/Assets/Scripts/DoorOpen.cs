@@ -19,22 +19,25 @@ public class DoorOpen : MonoBehaviour {
         m_doorAnim = m_theDoor.GetComponent<Animator>();
         m_eAnim = m_myCanvas.GetComponentInChildren<Animator>();
         m_guardAnim = m_theGuard.GetComponent<Animator>();
+        m_doorCam.enabled = false;
     }
 
     private void Update()
     {
-        if(m_inTrigger)
+        if (m_inTrigger)
         {
-            m_eAnim.SetBool("FadingIn", true);
-            m_playerCam.enabled = false;
-            m_doorCam.enabled = true;
-            if(Input.GetKeyDown("e"))
+            if (MindControl.control)
             {
-                StartCoroutine(doorOpeningAndClosing());
+                m_eAnim.SetBool("FadingIn", true);
+                m_playerCam.enabled = false;
+                m_doorCam.enabled = true;
+                if (Input.GetKeyDown("e"))
+                {
+                    StartCoroutine(doorOpeningAndClosing());
+                }
             }
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Door")
