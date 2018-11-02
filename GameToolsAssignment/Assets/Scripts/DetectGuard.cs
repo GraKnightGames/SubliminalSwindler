@@ -16,13 +16,10 @@ public class DetectGuard : MonoBehaviour
     {
         if(other.tag == "Detector")
         {
-            if (MindControl.control)
-            {
+            print("Coll");
                 m_otherGuardAnim.SetBool("Firing", true);
             }
         }
-    }
-
     private void OnTriggerExit(Collider other)
     {
             m_otherGuardAnim.SetBool("Firing", false);
