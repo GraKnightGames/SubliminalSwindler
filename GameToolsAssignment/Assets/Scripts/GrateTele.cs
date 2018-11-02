@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class GrateTele : MonoBehaviour {
     [SerializeField] Transform m_teleTrans;
     [SerializeField] Transform m_destTrans;
+    [SerializeField] private CinemachineVirtualCamera m_playerCam;
+    [SerializeField] private CinemachineVirtualCamera m_newPlayerCam;
     private Transform m_player;
     private bool m_inTele;
 	// Use this for initialization
@@ -19,6 +21,8 @@ public class GrateTele : MonoBehaviour {
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
+                m_playerCam.enabled = false;
+                m_newPlayerCam.enabled = true;
                 m_player.position = m_destTrans.position;
             }
         }
