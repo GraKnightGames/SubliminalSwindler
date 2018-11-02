@@ -36,14 +36,14 @@ public class DiamondCollect : MonoBehaviour {
             {
                 m_theDiamond.SetActive(false);
                 m_aboveLight.color = Color.red;
+                m_fadeAnim.SetBool("FadeIn", true);
                 StartCoroutine(WinScreen());
             }
         }
     }
     IEnumerator WinScreen()
     {
-        m_fadeAnim.SetBool("FadeIn", true);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Win");
     }
 }
