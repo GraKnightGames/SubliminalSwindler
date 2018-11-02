@@ -51,7 +51,7 @@ public class MindControl : MonoBehaviour {
        if(m_inTrigger)
         {
             mindControlIndMat.color = new Color(0.9f,0,0,0.5f);
-            if (Input.GetKeyDown("m"))
+            if (Input.GetButtonDown("Start"))
             {
                 print("Start Controlling");
                 StartCoroutine(controlling());
