@@ -49,6 +49,7 @@ public class GuardNormalMovement : MonoBehaviour
     {
         if (m_NPCState == NPCState.PATROL && m_isPlayerNear && CheckFOV() && CheckOclusion())
         {
+            Debug.Log("Change");
             m_NPCState = NPCState.CHASE;
             HandleAnimation();
             return;
@@ -75,6 +76,7 @@ public class GuardNormalMovement : MonoBehaviour
 
         if (angle.y < m_FieldOfView / 2)
         {
+            Debug.Log("I see you");
             return true;
         }
 
@@ -125,13 +127,27 @@ public class GuardNormalMovement : MonoBehaviour
             m_isPlayerNear = false;
         }
     }
-   
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 5.0f);
+
+        Gizmos.color = Color.red;
+        Vector3 dir = m_Player.transform.position + transform.position;
+        Gizmos.DrawRay(transform.position, dir);
+        Vector3 rightDir = Quaternion.AngleAxis(m_FieldOfView / 2, Vector3.up) * transform.forward;
+        Vector3 leftDir = Quaternion.AngleAxis(-m_FieldOfView / 2, Vector3.up) * transform.forward;
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, rightDir * 5);
+        Gizmos.DrawRay(transform.position, leftDir * 5);
+    }
     private void HandleAnimation()
     {
         m_NavMeshAgent.nextPosition = transform.position;
         if (m_NPCState == NPCState.CHASE)
         {
             m_anim.SetFloat("Forward", 2);
+            m_anim.SetBool("isFiring", true);
         }
         else
         {
