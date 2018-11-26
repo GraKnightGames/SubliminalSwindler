@@ -32,6 +32,19 @@ public class GuardNormalMovement : MonoBehaviour
     void Update()
     {
         CheckPlayer();
+        if(m_isPlayerNear)
+        {
+            Debug.Log("Near");
+        }
+        if(CheckFOV() == true)
+        {
+            Debug.Log("FOV");
+        }
+        if(CheckOclusion() == true)
+        {
+            Debug.Log("Occ");
+        }
+        Debug.Log(m_NPCState);
         m_NavMeshAgent.nextPosition = transform.position;
         switch (m_NPCState)
         {
@@ -61,6 +74,7 @@ public class GuardNormalMovement : MonoBehaviour
     }
     void Chase()
     {
+        Debug.Log("Chasing");
         m_NavMeshAgent.SetDestination(m_Player.transform.position);
     }
 
@@ -70,13 +84,13 @@ public class GuardNormalMovement : MonoBehaviour
         Vector3 angle = (Quaternion.FromToRotation(transform.forward, direction)).eulerAngles;
 
 
-        if (angle.y > 180.0f) angle.y = 360.0f - angle.y;
-        else if (angle.y < -180.0f) angle.y = angle.y + 360.0f;
-
+        if (angle.y > 180.0f)
+            angle.y = 360.0f - angle.y;
+        else if (angle.y < -180.0f)
+            angle.y = angle.y + 360.0f;
 
         if (angle.y < m_FieldOfView / 2)
         {
-            Debug.Log("I see you");
             return true;
         }
 
@@ -94,8 +108,8 @@ public class GuardNormalMovement : MonoBehaviour
                 return true;
             }
         }
-        return false;
-    }
+            return false;
+        }
     void Patrol()
     {
         CheckWaypointDistance();
@@ -134,12 +148,15 @@ public class GuardNormalMovement : MonoBehaviour
 
         Gizmos.color = Color.red;
         Vector3 dir = m_Player.transform.position + transform.position;
+        Vector3 direction = m_Player.transform.position - transform.position;
         Gizmos.DrawRay(transform.position, dir);
         Vector3 rightDir = Quaternion.AngleAxis(m_FieldOfView / 2, Vector3.up) * transform.forward;
         Vector3 leftDir = Quaternion.AngleAxis(-m_FieldOfView / 2, Vector3.up) * transform.forward;
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, rightDir * 5);
         Gizmos.DrawRay(transform.position, leftDir * 5);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, direction);
     }
     private void HandleAnimation()
     {

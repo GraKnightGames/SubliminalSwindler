@@ -19,7 +19,6 @@ public class DiamondCollect : MonoBehaviour {
     {
         if(other.tag == "Goal")
         {
-            print("Should be triggering");
             m_inTrigger = true;
         }
         else
@@ -31,7 +30,6 @@ public class DiamondCollect : MonoBehaviour {
     {
         if(m_inTrigger)
         {
-            print("inTrigger");
             if (Input.GetKeyDown("e"))
             {
                 m_theDiamond.SetActive(false);

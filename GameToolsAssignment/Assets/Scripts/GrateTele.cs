@@ -38,7 +38,7 @@ public class GrateTele : MonoBehaviour {
         {
             if (other.tag == "Tele")
             {
-                m_inTele = true;
+                m_inTele = false;
             }
         }
     }
