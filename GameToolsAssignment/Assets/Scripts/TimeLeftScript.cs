@@ -6,6 +6,7 @@ public class TimeLeftScript : MonoBehaviour {
     [SerializeField] private Image barImg;
     [SerializeField] private float m_fillAmount;
     [SerializeField] private MindControl m_mc;
+    private MindControl m_cntrl;
     private float m_decAmount = 0.02096f;
     private float startControl;
     private float control;

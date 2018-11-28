@@ -14,6 +14,7 @@ public class DoorOpen : MonoBehaviour {
     private Animator m_guardAnim;
     [SerializeField] private float waitTime;
     private bool m_inTrigger;
+    private MindControl m_cntrl;
     private void Start()
     {
         m_doorAnim = m_theDoor.GetComponent<Animator>();

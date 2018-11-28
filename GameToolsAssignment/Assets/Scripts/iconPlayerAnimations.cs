@@ -19,7 +19,7 @@ public class iconPlayerAnimations : MonoBehaviour {
             m_thisAnim.SetBool("Controlling", true);
             print("Control Animation");
         }
-        else if (!MindControl.control)
+        else if (MindControl.control)
         {
             m_thisAnim.SetBool("Controlling", false);
         }

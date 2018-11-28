@@ -5,12 +5,12 @@ using Cinemachine;
 public class MindControl : MonoBehaviour {
     private GameObject player;
     private PlayerMovement m_playerMoveScript;
-    private GuardNormalMovement m_guardNorm;
+    [SerializeField] private GuardNormalMovement m_guardNorm;
     public static bool control;
     private bool m_inTrigger;
     private ParticleSystem m_part;
     private Animator m_playerAnim;
-    private Animator m_guardAnim;
+    [SerializeField] private Animator m_guardAnim;
     private GuardPlayerControl m_guard;
     private float m_turn, m_forward;
     public static float waitTime;
@@ -22,12 +22,10 @@ public class MindControl : MonoBehaviour {
     void Start () {
         waitTime = 10.0f;
         player = GameObject.FindGameObjectWithTag("Player");
-        m_part = GetComponentInChildren<ParticleSystem>();
+        m_part = this.GetComponentInChildren<ParticleSystem>();
         m_playerMoveScript = player.GetComponent<PlayerMovement>();
         m_playerAnim = player.GetComponent<Animator>();
-        m_guardAnim = GetComponent<Animator>();
-        m_guard = GetComponent<GuardPlayerControl>();
-        m_guardNorm = GetComponent<GuardNormalMovement>();
+        m_guard = this.GetComponent<GuardPlayerControl>();
         m_guard.enabled = false;
         m_guardNorm.enabled = true;
         m_inTrigger = false;
@@ -104,8 +102,5 @@ public class MindControl : MonoBehaviour {
         m_playerAnim.SetBool("Controlling", false);
         m_guardAnim.SetBool("isFiring", false);
         m_guardNorm.enabled = true;
-        yield return new WaitForSeconds(2.418f);
-        m_guardAnim.SetFloat("Forward", 1);
-        m_guardAnim.SetFloat("Turn", 0.5f);
     }
     }

@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 public class GuardNormalMovement : MonoBehaviour
 {
+
     private enum NPCState { CHASE, PATROL };
     private NPCState m_NPCState;
     private NavMeshAgent m_NavMeshAgent;
     private int m_CurrentWaypoint;
     private bool m_isPlayerNear;
     private Animator m_anim;
+    private MindControl m_cntrl;
 
     [SerializeField] float m_FieldOfView;
     [SerializeField] float m_ThresholdDistance;
@@ -32,19 +34,6 @@ public class GuardNormalMovement : MonoBehaviour
     void Update()
     {
         CheckPlayer();
-        if(m_isPlayerNear)
-        {
-            Debug.Log("Near");
-        }
-        if(CheckFOV() == true)
-        {
-            Debug.Log("FOV");
-        }
-        if(CheckOclusion() == true)
-        {
-            Debug.Log("Occ");
-        }
-        Debug.Log(m_NPCState);
         m_NavMeshAgent.nextPosition = transform.position;
         switch (m_NPCState)
         {
@@ -60,9 +49,8 @@ public class GuardNormalMovement : MonoBehaviour
     }
     void CheckPlayer()
     {
-        if (m_NPCState == NPCState.PATROL && m_isPlayerNear && CheckFOV() && CheckOclusion())
+        if (m_NPCState == NPCState.PATROL && m_isPlayerNear && CheckFieldOfView() && CheckOclusion())
         {
-            Debug.Log("Change");
             m_NPCState = NPCState.CHASE;
             HandleAnimation();
             return;
@@ -74,20 +62,18 @@ public class GuardNormalMovement : MonoBehaviour
     }
     void Chase()
     {
-        Debug.Log("Chasing");
         m_NavMeshAgent.SetDestination(m_Player.transform.position);
     }
 
-    bool CheckFOV()
+    bool CheckFieldOfView()
     {
         Vector3 direction = m_Player.transform.position - this.transform.position;
         Vector3 angle = (Quaternion.FromToRotation(transform.forward, direction)).eulerAngles;
 
 
-        if (angle.y > 180.0f)
-            angle.y = 360.0f - angle.y;
-        else if (angle.y < -180.0f)
-            angle.y = angle.y + 360.0f;
+        if (angle.y > 180.0f) angle.y = 360.0f - angle.y;
+        else if (angle.y < -180.0f) angle.y = angle.y + 360.0f;
+
 
         if (angle.y < m_FieldOfView / 2)
         {
@@ -108,10 +94,12 @@ public class GuardNormalMovement : MonoBehaviour
                 return true;
             }
         }
-            return false;
-        }
+        return false;
+    }
+
     void Patrol()
     {
+        //Debug.Log("Patrolling")
         CheckWaypointDistance();
         m_NavMeshAgent.SetDestination(m_Waypoints[m_CurrentWaypoint].position);
     }
@@ -124,16 +112,14 @@ public class GuardNormalMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other) // CheckOclusion?
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && CheckFieldOfView())
         {
-            if (CheckFOV())
-            {
-                m_isPlayerNear = true;
-            }
+            m_isPlayerNear = true;
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
@@ -148,15 +134,12 @@ public class GuardNormalMovement : MonoBehaviour
 
         Gizmos.color = Color.red;
         Vector3 dir = m_Player.transform.position + transform.position;
-        Vector3 direction = m_Player.transform.position - transform.position;
         Gizmos.DrawRay(transform.position, dir);
         Vector3 rightDir = Quaternion.AngleAxis(m_FieldOfView / 2, Vector3.up) * transform.forward;
         Vector3 leftDir = Quaternion.AngleAxis(-m_FieldOfView / 2, Vector3.up) * transform.forward;
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, rightDir * 5);
         Gizmos.DrawRay(transform.position, leftDir * 5);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, direction);
     }
     private void HandleAnimation()
     {
@@ -164,7 +147,6 @@ public class GuardNormalMovement : MonoBehaviour
         if (m_NPCState == NPCState.CHASE)
         {
             m_anim.SetFloat("Forward", 2);
-            m_anim.SetBool("isFiring", true);
         }
         else
         {
@@ -174,7 +156,7 @@ public class GuardNormalMovement : MonoBehaviour
 }
         //if (m_guardAnim.GetBool("Dying"))
         //{
-          //  m_guardAnim.SetFloat("Forward", 0);
-          //  m_guardAnim.SetFloat("Turn", 0);
-          //  m_guardAnim.SetLayerWeight(1, 0);
-       // }
+        //  m_guardAnim.SetFloat("Forward", 0);
+        //  m_guardAnim.SetFloat("Turn", 0);
+        //  m_guardAnim.SetLayerWeight(1, 0);
+        // }

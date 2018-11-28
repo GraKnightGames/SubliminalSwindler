@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GuardPlayerControl : MonoBehaviour {
     private Animator m_anim;
+    private MindControl m_cntrl;
     [SerializeField] private AudioSource m_gunSFX;
     void Start()
     {
