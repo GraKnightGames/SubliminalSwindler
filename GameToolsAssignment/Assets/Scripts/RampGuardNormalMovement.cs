@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class GuardNormalMovement : MonoBehaviour
-{
-
+public class RampGuardNormalMovement : MonoBehaviour {
     public enum NPCState { CHASE, PATROL };
     public NPCState m_NPCState;
     public NavMeshAgent m_NavMeshAgent;
@@ -25,7 +23,7 @@ public class GuardNormalMovement : MonoBehaviour
         m_NPCState = NPCState.PATROL;
         m_NavMeshAgent = GetComponent<NavMeshAgent>();
         m_CurrentWaypoint = 0;
-        m_NavMeshAgent.updatePosition = false;
+        m_NavMeshAgent.updatePosition = true;
         m_NavMeshAgent.updateRotation = true;
         HandleAnimation();
     }
@@ -46,6 +44,7 @@ public class GuardNormalMovement : MonoBehaviour
             default:
                 break;
         }
+        print("Waypoint: " + m_CurrentWaypoint);
         if (m_anim.GetBool("Dying"))
         {
             m_anim.SetFloat("Forward", 0);
@@ -112,11 +111,11 @@ public class GuardNormalMovement : MonoBehaviour
 
     void CheckWaypointDistance()
     {
-            if (Vector3.Distance(m_Waypoints[m_CurrentWaypoint].position, this.transform.position) < m_ThresholdDistance)
-            {
-                m_CurrentWaypoint = (m_CurrentWaypoint + 1) % m_Waypoints.Length;
-            }
+        if (Vector3.Distance(m_Waypoints[m_CurrentWaypoint].position, this.transform.position) < m_ThresholdDistance)
+        {
+            m_CurrentWaypoint = (m_CurrentWaypoint + 1) % m_Waypoints.Length;
         }
+    }
     private void OnTriggerStay(Collider other) // CheckOclusion?
     {
         if (other.tag == "Player" && CheckFieldOfView())
@@ -159,4 +158,4 @@ public class GuardNormalMovement : MonoBehaviour
         }
     }
 }
-        
+       

@@ -5,6 +5,7 @@ using Cinemachine;
 using UnityEngine.UI;
 public class StartOfGame : MonoBehaviour {
     [SerializeField] private CinemachineVirtualCamera m_goalCam;
+    [SerializeField] private CinemachineVirtualCamera m_midCam;
     [SerializeField] private CinemachineVirtualCamera m_playerCam;
     [SerializeField] private Animator m_iconAnim;
     [SerializeField] private Animator m_borderAnim;
@@ -23,11 +24,15 @@ public class StartOfGame : MonoBehaviour {
 
     IEnumerator startView()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
+        m_midCam.enabled = true;
+        m_goalCam.enabled = false;
+        yield return new WaitForSeconds(2);
+        m_midCam.enabled = false;
+        m_playerCam.enabled = true;
+        yield return new WaitForSeconds(0.5f);
         m_iconAnim.SetBool("FadingIn", true);
         m_borderAnim.SetBool("BorderFading", true);
-        m_playerCam.enabled = true;
-        m_goalCam.enabled = false;
         m_text.enabled = true;
     }
 }

@@ -8,19 +8,28 @@ public class GuardPlayerControl : MonoBehaviour {
     [SerializeField] private AudioSource m_gunSFX;
     void Start()
     {
+        m_cntrl = GetComponent<MindControl>();
         m_anim = GetComponent<Animator>();
     }
 
     public void Move(float turn, float forward)
     {
-        m_anim.SetFloat("Turn", turn);
-        m_anim.SetFloat("Forward", forward);
+        print("Forward: " + forward);
+        if (m_cntrl.m_controlledGuard = this.gameObject)
+        {
+            m_anim.SetFloat("Turn", turn);
+            m_anim.SetFloat("Forward", forward);
+        }
+        else
+        {
+
+        }
     }
     private void Update()
     {
         if(Input.GetKey(KeyCode.E))
         {
-            if(MindControl.control)
+            if(MindControl.control || RampGuardMindControl.control)
             {
                 m_gunSFX.Play();
                 m_anim.SetBool("isFiring", true);

@@ -10,16 +10,16 @@ public class Timer : MonoBehaviour
     [SerializeField] Animator fadeAnim;
     void Start()
     {
-            StartCoundownTimer();
+            StartCountdownTimer();
     }
 
-    void StartCoundownTimer()
+    void StartCountdownTimer()
     {
         if (m_text != null)
         {
-            m_time = 120;
-            m_text.text = "Time Left: 2:00";
-            InvokeRepeating("UpdateTime", 0.0f, 0.01667f);
+            m_time = 180;
+            m_text.text = "Time Left: 3:00";
+            InvokeRepeating("UpdateTime", 0.0f, 0.0161f);
         }
     }
 
