@@ -12,7 +12,7 @@ public class GuardNormalMovement : MonoBehaviour
     private bool m_isPlayerNear;
     private Animator m_anim;
     private MindControl m_cntrl;
-
+    private bool m_waiting;
     [SerializeField] float m_FieldOfView;
     [SerializeField] float m_ThresholdDistance;
     [SerializeField] public Transform[] m_Waypoints;
@@ -52,7 +52,15 @@ public class GuardNormalMovement : MonoBehaviour
             m_anim.SetFloat("Turn", 0);
             m_anim.SetLayerWeight(1, 0);
         }
+        if (m_waiting)
+        {
+            StartCoroutine(Wait());
+            m_waiting = false;
+        }
+        else
+        {
 
+        }
     }
     void CheckPlayer()
     {
@@ -71,7 +79,14 @@ public class GuardNormalMovement : MonoBehaviour
     {
         m_NavMeshAgent.SetDestination(m_Player.transform.position);
     }
-
+    IEnumerator Wait()
+    {
+        m_NavMeshAgent.isStopped = true;
+        m_anim.SetFloat("Forward", 0);
+        yield return new WaitForSeconds(2);
+        m_NavMeshAgent.isStopped = false;
+        m_anim.SetFloat("Forward", 1);
+    }
     bool CheckFieldOfView()
     {
         Vector3 direction = m_Player.transform.position - this.transform.position;
@@ -114,7 +129,8 @@ public class GuardNormalMovement : MonoBehaviour
     {
             if (Vector3.Distance(m_Waypoints[m_CurrentWaypoint].position, this.transform.position) < m_ThresholdDistance)
             {
-                m_CurrentWaypoint = (m_CurrentWaypoint + 1) % m_Waypoints.Length;
+            m_waiting = true;
+            m_CurrentWaypoint = (m_CurrentWaypoint + 1) % m_Waypoints.Length;
             }
         }
     private void OnTriggerStay(Collider other) // CheckOclusion?

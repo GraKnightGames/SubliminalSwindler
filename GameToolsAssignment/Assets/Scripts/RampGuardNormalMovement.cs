@@ -9,6 +9,7 @@ public class RampGuardNormalMovement : MonoBehaviour {
     public int m_CurrentWaypoint;
     private bool m_isPlayerNear;
     private Animator m_anim;
+    private bool m_wait;
     private MindControl m_cntrl;
 
     [SerializeField] float m_FieldOfView;
@@ -33,6 +34,11 @@ public class RampGuardNormalMovement : MonoBehaviour {
     {
         CheckPlayer();
         m_NavMeshAgent.nextPosition = transform.position;
+        if(m_wait)
+        {
+            StartCoroutine(Wait());
+            m_wait = false;
+        }
         switch (m_NPCState)
         {
             case NPCState.CHASE:
@@ -51,7 +57,14 @@ public class RampGuardNormalMovement : MonoBehaviour {
             m_anim.SetFloat("Turn", 0);
             m_anim.SetLayerWeight(1, 0);
         }
-
+    }
+    IEnumerator Wait()
+    {
+        m_NavMeshAgent.isStopped = true;
+        m_anim.SetFloat("Forward", 0);
+        yield return new WaitForSeconds(2);
+        m_NavMeshAgent.isStopped = false;
+        m_anim.SetFloat("Forward", 1);
     }
     void CheckPlayer()
     {
@@ -113,6 +126,7 @@ public class RampGuardNormalMovement : MonoBehaviour {
     {
         if (Vector3.Distance(m_Waypoints[m_CurrentWaypoint].position, this.transform.position) < m_ThresholdDistance)
         {
+            m_wait = true;
             m_CurrentWaypoint = (m_CurrentWaypoint + 1) % m_Waypoints.Length;
         }
     }
