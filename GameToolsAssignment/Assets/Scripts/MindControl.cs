@@ -114,5 +114,6 @@ public class MindControl : MonoBehaviour {
         m_guardNorm.m_NPCState = GuardNormalMovement.NPCState.PATROL;
         m_guardNorm.m_NavMeshAgent.SetDestination((m_points[m_guardNorm.m_CurrentWaypoint].position));
         m_guardNorm.HandleAnimation();
+        m_controlledGuard = null;
     }
     }

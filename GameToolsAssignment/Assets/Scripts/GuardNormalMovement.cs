@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class GuardNormalMovement : MonoBehaviour
 {
-
+    //Defining Variables and States
     public enum NPCState { CHASE, PATROL };
     public NPCState m_NPCState;
     public NavMeshAgent m_NavMeshAgent;
@@ -25,17 +25,25 @@ public class GuardNormalMovement : MonoBehaviour
         m_NPCState = NPCState.PATROL;
         m_NavMeshAgent = GetComponent<NavMeshAgent>();
         m_CurrentWaypoint = 0;
-        m_NavMeshAgent.updatePosition = false;
-        m_NavMeshAgent.updateRotation = true;
+        if (this.tag == "Guard")
+        {
+            m_NavMeshAgent.updatePosition = false;
+            m_NavMeshAgent.updateRotation = true;
+        }
+        else if(this.name == "RampGuard")
+        {
+            m_NavMeshAgent.updatePosition = true;
+            m_NavMeshAgent.updateRotation = true;
+        }
         HandleAnimation();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckPlayer();
+        CheckPlayer(); //Checks if the player is within the field of view
         m_NavMeshAgent.nextPosition = transform.position;
-        switch (m_NPCState)
+        switch (m_NPCState) //Detecting the current state of the NPC
         {
             case NPCState.CHASE:
                 Chase();
@@ -46,13 +54,13 @@ public class GuardNormalMovement : MonoBehaviour
             default:
                 break;
         }
-        if (m_anim.GetBool("Dying"))
+        if (m_anim.GetBool("Dying")) //If the guard has been killed, change the weight of the animation layer to allow it to affect more than just in the layer
         {
             m_anim.SetFloat("Forward", 0);
             m_anim.SetFloat("Turn", 0);
             m_anim.SetLayerWeight(1, 0);
         }
-        if (m_waiting)
+        if (m_waiting) //Coroutine for waiting
         {
             StartCoroutine(Wait());
             m_waiting = false;
@@ -62,7 +70,7 @@ public class GuardNormalMovement : MonoBehaviour
 
         }
     }
-    void CheckPlayer()
+    void CheckPlayer() //Checking the location of the player
     {
         if (m_NPCState == NPCState.PATROL && m_isPlayerNear && CheckFieldOfView() && CheckOclusion())
         {
@@ -77,17 +85,25 @@ public class GuardNormalMovement : MonoBehaviour
     }
     void Chase()
     {
-        m_NavMeshAgent.SetDestination(m_Player.transform.position);
+        m_NavMeshAgent.SetDestination(m_Player.transform.position);//Setting the agent's destination to the player
+        m_anim.SetBool("isFiring", true);
     }
-    IEnumerator Wait()
+    IEnumerator Wait() //Stop rotation and trigger animation state to go from walking to stopping, then wait and go back to walking and enable rotation, BUT only if patrolling
     {
-        m_NavMeshAgent.isStopped = true;
-        m_anim.SetFloat("Forward", 0);
-        yield return new WaitForSeconds(2);
-        m_NavMeshAgent.isStopped = false;
-        m_anim.SetFloat("Forward", 1);
+        if (m_NPCState == NPCState.PATROL)
+        {
+            m_NavMeshAgent.isStopped = true;
+            m_anim.SetBool("Stopping", true);
+            yield return new WaitForSeconds(2);
+            m_NavMeshAgent.isStopped = false;
+            m_anim.SetBool("Stopping", false);
+        }
+        else
+        {
+
+        }
     }
-    bool CheckFieldOfView()
+    bool CheckFieldOfView() //Checking field of view
     {
         Vector3 direction = m_Player.transform.position - this.transform.position;
         Vector3 angle = (Quaternion.FromToRotation(transform.forward, direction)).eulerAngles;
@@ -105,7 +121,7 @@ public class GuardNormalMovement : MonoBehaviour
         return false;
     }
 
-    bool CheckOclusion()
+    bool CheckOclusion() //Checking if there are walls blocking the player
     {
         RaycastHit hit;
         Vector3 direction = m_Player.transform.position - transform.position;
@@ -119,7 +135,7 @@ public class GuardNormalMovement : MonoBehaviour
         return false;
     }
 
-    void Patrol()
+    void Patrol() //Patrolling behaviour
     {
         CheckWaypointDistance();
         m_NavMeshAgent.SetDestination(m_Waypoints[m_CurrentWaypoint].position);
@@ -127,7 +143,7 @@ public class GuardNormalMovement : MonoBehaviour
 
     void CheckWaypointDistance()
     {
-            if (Vector3.Distance(m_Waypoints[m_CurrentWaypoint].position, this.transform.position) < m_ThresholdDistance)
+            if (Vector3.Distance(m_Waypoints[m_CurrentWaypoint].position, this.transform.position) < m_ThresholdDistance) //If the enemy is on or near (affected by threshold distance var) the waypoint, change the waypoint)
             {
             m_waiting = true;
             m_CurrentWaypoint = (m_CurrentWaypoint + 1) % m_Waypoints.Length;
@@ -137,7 +153,7 @@ public class GuardNormalMovement : MonoBehaviour
     {
         if (other.tag == "Player" && CheckFieldOfView())
         {
-            m_isPlayerNear = true;
+            m_isPlayerNear = true; //If an object with the player tag is within field of view, set variable to true
         }
     }
 
@@ -145,10 +161,10 @@ public class GuardNormalMovement : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            m_isPlayerNear = false;
+            m_isPlayerNear = false; //Resets to false
         }
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmos() //Draws field of view in scene view
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, 5.0f);
@@ -162,14 +178,14 @@ public class GuardNormalMovement : MonoBehaviour
         Gizmos.DrawRay(transform.position, rightDir * 5);
         Gizmos.DrawRay(transform.position, leftDir * 5);
     }
-    public void HandleAnimation()
+    public void HandleAnimation() //If the guard is chasing the player, change the animation to a run animation, if not walk
     {
         m_NavMeshAgent.nextPosition = transform.position;
         if (m_NPCState == NPCState.CHASE)
         {
             m_anim.SetFloat("Forward", 2);
         }
-        else
+        else if (m_NPCState == NPCState.PATROL)
         {
             m_anim.SetFloat("Forward", 1);
         }

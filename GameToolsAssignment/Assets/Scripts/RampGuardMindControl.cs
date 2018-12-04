@@ -10,7 +10,7 @@ public class RampGuardMindControl : MonoBehaviour {
     private NavMeshAgent m_agent;
     public static bool control;
     private bool m_inTrigger;
-    private ParticleSystem m_part;
+    [SerializeField] private ParticleSystem m_part;
     private Animator m_playerAnim;
     public GameObject m_controlledGuard;
     [SerializeField] private Animator m_guardAnim;
@@ -29,7 +29,6 @@ public class RampGuardMindControl : MonoBehaviour {
         m_agent = GetComponent<NavMeshAgent>();
         m_guardNorm = GetComponent<RampGuardNormalMovement>();
         player = GameObject.FindGameObjectWithTag("Player");
-        m_part = this.GetComponentInChildren<ParticleSystem>();
         m_playerMoveScript = player.GetComponent<PlayerMovement>();
         m_playerAnim = player.GetComponent<Animator>();
         m_guard = this.GetComponent<GuardPlayerControl>();

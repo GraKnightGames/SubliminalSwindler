@@ -84,7 +84,7 @@ public class RampGuardNormalMovement : MonoBehaviour {
         m_NavMeshAgent.SetDestination(m_Player.transform.position);
     }
 
-    bool CheckFieldOfView()
+    bool CheckFieldOfView() //Checking the field of view
     {
         Vector3 direction = m_Player.transform.position - this.transform.position;
         Vector3 angle = (Quaternion.FromToRotation(transform.forward, direction)).eulerAngles;
@@ -98,8 +98,7 @@ public class RampGuardNormalMovement : MonoBehaviour {
         {
             return true;
         }
-
-        return false;
+            return false;
     }
 
     bool CheckOclusion()
