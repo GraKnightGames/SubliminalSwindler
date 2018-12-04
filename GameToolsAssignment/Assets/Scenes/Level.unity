@@ -9000,7 +9000,7 @@ MonoBehaviour:
   m_NPCState: 0
   m_NavMeshAgent: {fileID: 0}
   m_CurrentWaypoint: 0
-  m_FieldOfView: 142.17
+  m_FieldOfView: 58.6
   m_ThresholdDistance: 0.8
   m_Waypoints:
   - {fileID: 210534489}
@@ -9823,13 +9823,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 587954393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e3772f4916db1d4ab6a53088f9dfa20, type: 3}
+  m_Script: {fileID: 11500000, guid: 92653a81142bb104182d2934f578a196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NPCState: 0
   m_NavMeshAgent: {fileID: 0}
   m_CurrentWaypoint: 0
-  m_FieldOfView: 105.8
+  m_FieldOfView: 58.6
   m_ThresholdDistance: 0.8
   m_Waypoints:
   - {fileID: 1985752315}
@@ -10676,7 +10676,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 679677466}
-  m_LocalRotation: {x: 2.2481711e-24, y: 0.5715549, z: 3.72867e-24, w: 0.8205639}
+  m_LocalRotation: {x: 2.2481638e-24, y: 0.5715549, z: 3.72867e-24, w: 0.8205639}
   m_LocalPosition: {x: -0.25999784, y: 2.39, z: 1.2000017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -13876,7 +13876,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 831692161}
-  m_LocalRotation: {x: 0.114756234, y: 0.06590941, z: -0.00763085, w: 0.9911755}
+  m_LocalRotation: {x: 0.114756234, y: 0.0659094, z: -0.0076308497, w: 0.9911755}
   m_LocalPosition: {x: 0.78000057, y: 3.778888, z: -3.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -19011,7 +19011,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000374325430148, guid: c2852ea9da5a52e4d9e16ae56ea1828b, type: 2}
       propertyPath: m_TagString
-      value: Guard
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 114070822021228260, guid: c2852ea9da5a52e4d9e16ae56ea1828b,
         type: 2}
@@ -19054,7 +19054,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000374325430148, guid: c2852ea9da5a52e4d9e16ae56ea1828b, type: 2}
       propertyPath: m_Name
-      value: Guard2 (1)
+      value: RampGuard
       objectReference: {fileID: 0}
     - target: {fileID: 4371221228275254, guid: c2852ea9da5a52e4d9e16ae56ea1828b, type: 2}
       propertyPath: m_RootOrder
@@ -24241,7 +24241,7 @@ MonoBehaviour:
   m_NPCState: 0
   m_NavMeshAgent: {fileID: 0}
   m_CurrentWaypoint: 0
-  m_FieldOfView: 142.17
+  m_FieldOfView: 58.6
   m_ThresholdDistance: 0.8
   m_Waypoints:
   - {fileID: 454037034}

@@ -117,8 +117,10 @@ public class GuardNormalMovement : MonoBehaviour
         {
             return true;
         }
-
-        return false;
+        else
+        {
+            return false;
+        }
     }
 
     bool CheckOclusion() //Checking if there are walls blocking the player
@@ -132,7 +134,7 @@ public class GuardNormalMovement : MonoBehaviour
                 return true;
             }
         }
-        return false;
+            return false;
     }
 
     void Patrol() //Patrolling behaviour
