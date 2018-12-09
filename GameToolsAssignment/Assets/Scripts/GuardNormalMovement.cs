@@ -25,7 +25,7 @@ public class GuardNormalMovement : MonoBehaviour
         m_NPCState = NPCState.PATROL;
         m_NavMeshAgent = GetComponent<NavMeshAgent>();
         m_CurrentWaypoint = 0;
-        if (this.tag == "Guard")
+        if (this.tag == "Guard") //Determining if the guard is a normal type or the one placed on the ramp
         {
             m_NavMeshAgent.updatePosition = false;
             m_NavMeshAgent.updateRotation = true;

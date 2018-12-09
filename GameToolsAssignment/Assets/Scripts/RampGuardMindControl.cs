@@ -6,7 +6,7 @@ using Cinemachine;
 public class RampGuardMindControl : MonoBehaviour {
     private GameObject player;
     private PlayerMovement m_playerMoveScript;
-    private RampGuardNormalMovement m_guardNorm;
+    private GuardNormalMovement m_guardNorm;
     private NavMeshAgent m_agent;
     public static bool control;
     private bool m_inTrigger;
@@ -27,7 +27,7 @@ public class RampGuardMindControl : MonoBehaviour {
     {
         waitTime = 10.0f;
         m_agent = GetComponent<NavMeshAgent>();
-        m_guardNorm = GetComponent<RampGuardNormalMovement>();
+        m_guardNorm = GetComponent<GuardNormalMovement>();
         player = GameObject.FindGameObjectWithTag("Player");
         m_playerMoveScript = player.GetComponent<PlayerMovement>();
         m_playerAnim = player.GetComponent<Animator>();
@@ -112,7 +112,7 @@ public class RampGuardMindControl : MonoBehaviour {
         m_guardAnim.SetBool("isFiring", false);
         yield return new WaitForSeconds(1);
         m_guardNorm.enabled = true;
-        m_guardNorm.m_NPCState = RampGuardNormalMovement.NPCState.PATROL;
+        m_guardNorm.m_NPCState = GuardNormalMovement.NPCState.PATROL;
         m_guardNorm.m_NavMeshAgent.SetDestination((m_points[m_guardNorm.m_CurrentWaypoint].position));
         m_guardNorm.HandleAnimation();
     }

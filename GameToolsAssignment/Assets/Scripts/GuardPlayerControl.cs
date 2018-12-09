@@ -17,14 +17,10 @@ public class GuardPlayerControl : MonoBehaviour {
         print("Forward: " + forward);
         if (m_cntrl.m_controlledGuard = this.gameObject)
         {
-            m_anim.SetFloat("Turn", turn);
-            m_anim.SetFloat("Forward", forward);
+                m_anim.SetFloat("Turn", turn);
+                m_anim.SetFloat("Forward", forward);
+            }
         }
-        else
-        {
-
-        }
-    }
     private void Update()
     {
         if(Input.GetKey(KeyCode.E))
