@@ -8,14 +8,14 @@ public class ChangeCamera : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera outCam;
     private void Start()
     {
-        outCam.enabled = false;
+        outCam.enabled = false; //Camera zoomed in on player
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "CamChange")
         {
             inCam.enabled = false;
-            outCam.enabled = true;
+            outCam.enabled = true; //Bringing the camera out
         }
     }
 }

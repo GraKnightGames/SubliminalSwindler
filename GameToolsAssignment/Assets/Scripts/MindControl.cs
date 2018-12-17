@@ -42,13 +42,13 @@ public class MindControl : MonoBehaviour {
 
     private void Update()
     {
-        m_turn = Input.GetAxis("Horizontal");
+        m_turn = Input.GetAxis("Horizontal"); //Setting player input to influence NPC values
         m_forward = Input.GetAxis("Vertical");
         if (control)
         {
-            m_playerAnim.SetBool("Controlling", true);
-            m_controlledGuard = this.gameObject;
-            m_guard.Move(m_turn, m_forward);
+            m_playerAnim.SetBool("Controlling", true); //For head animation
+            m_controlledGuard = this.gameObject; //Prevents other guards from being affected by this guard being controlled
+            m_guard.Move(m_turn, m_forward); // Actual movement of guard
         }
        else if(!control)
         {
@@ -56,7 +56,7 @@ public class MindControl : MonoBehaviour {
         }
        if(m_inTrigger)
         {
-            mindControlIndMat.color = new Color(0.9f,0,0,0.5f);
+            mindControlIndMat.color = new Color(0.9f,0,0,0.5f); //Changes the colour of the indicator to show if a guard can be controlled
             if (Input.GetButtonDown("Start"))
             {
                 print("Start Controlling");
@@ -65,15 +65,16 @@ public class MindControl : MonoBehaviour {
         }
        else if (!m_inTrigger)
         {
-            mindControlIndMat.color = new Color(1, 1, 1, 0.5f);
+            mindControlIndMat.color = new Color(1, 1, 1, 0.5f); //Returning colour to normal
         }
     }
 
+    //Detecting if the guard is in the player's trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "MindControl")
         {
-            m_inTrigger = true;
+            m_inTrigger = true; 
         }
     }
     private void OnTriggerExit(Collider other)
@@ -83,6 +84,7 @@ public class MindControl : MonoBehaviour {
             m_inTrigger = false;
         }
     }
+    //Setting all guard control elements (camera, control etc.) then returning to normal after the time set as 'waitTime'
     IEnumerator controlling()
     {
         print("Cntrl");

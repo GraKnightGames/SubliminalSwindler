@@ -11,7 +11,7 @@ public class GuardPlayerControl : MonoBehaviour {
         m_cntrl = GetComponent<MindControl>();
         m_anim = GetComponent<Animator>();
     }
-
+    //Player input
     public void Move(float turn, float forward)
     {
         print("Forward: " + forward);
@@ -21,6 +21,7 @@ public class GuardPlayerControl : MonoBehaviour {
                 m_anim.SetFloat("Forward", forward);
             }
         }
+    //Gun firing while controlling
     private void Update()
     {
         if(Input.GetKey(KeyCode.E))

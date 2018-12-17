@@ -7,7 +7,7 @@ public class BackToMenu : MonoBehaviour {
 	void Update () {
 		if(Input.GetButtonDown("Start"))
         {
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("Menu"); // Returns back to the menu screen
         }
 	}
 }
