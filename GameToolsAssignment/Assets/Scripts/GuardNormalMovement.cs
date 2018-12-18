@@ -105,8 +105,8 @@ public class GuardNormalMovement : MonoBehaviour
     }
     bool CheckFieldOfView() //Checking field of view
     {
-        Vector3 direction = m_Player.transform.position - this.transform.position;
-        Vector3 angle = (Quaternion.FromToRotation(transform.forward, direction)).eulerAngles;
+        Vector3 direction = m_Player.transform.position - this.transform.position; //Direction the player is in relation to the NPC
+        Vector3 angle = (Quaternion.FromToRotation(transform.forward, direction)).eulerAngles; //Angle the player is in relation to the NPC
 
 
         if (angle.y > 180.0f) angle.y = 360.0f - angle.y;
@@ -115,11 +115,11 @@ public class GuardNormalMovement : MonoBehaviour
 
         if (angle.y < m_FieldOfView / 2)
         {
-            return true;
+            return true; //Player is within the FOV
         }
         else
         {
-            return false;
+            return false; //Player is not within the FOV
         }
     }
 
@@ -127,11 +127,11 @@ public class GuardNormalMovement : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 direction = m_Player.transform.position - transform.position;
-        if (Physics.Raycast(this.transform.position, direction, out hit))
+        if (Physics.Raycast(this.transform.position, direction, out hit)) //Casting a ray from the NPC in the direction of the player
         {
             if (hit.collider.gameObject == m_Player)
             {
-                return true;
+                return true; //If the ray hits the player, there are no walls blocking the player and guards
             }
         }
             return false;
@@ -139,7 +139,7 @@ public class GuardNormalMovement : MonoBehaviour
 
     void Patrol() //Patrolling behaviour
     {
-        CheckWaypointDistance();
+        CheckWaypointDistance(); //Checking the distance between the NPC and the current waypoint
         m_NavMeshAgent.SetDestination(m_Waypoints[m_CurrentWaypoint].position);
     }
 
@@ -147,7 +147,7 @@ public class GuardNormalMovement : MonoBehaviour
     {
             if (Vector3.Distance(m_Waypoints[m_CurrentWaypoint].position, this.transform.position) < m_ThresholdDistance) //If the enemy is on or near (affected by threshold distance var) the waypoint, change the waypoint)
             {
-            m_waiting = true;
+            m_waiting = true; //Stopping and waiting for two seconds at each waypoint
             m_CurrentWaypoint = (m_CurrentWaypoint + 1) % m_Waypoints.Length;
             }
         }
@@ -166,7 +166,7 @@ public class GuardNormalMovement : MonoBehaviour
             m_isPlayerNear = false; //Resets to false
         }
     }
-    private void OnDrawGizmos() //Draws field of view in scene view
+    private void OnDrawGizmos() //Draws field of view in scene view for ease of testing
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, 5.0f);
