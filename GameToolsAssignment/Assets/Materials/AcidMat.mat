@@ -59,7 +59,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2DLOD_3CED2EA9_Texture:
-        m_Texture: {fileID: 2800000, guid: 031926983bb510048b731561a5b98730, type: 3}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_76DD1B9E_Texture:
+        m_Texture: {fileID: 2800000, guid: aacd06676effb0a41a735e3baa77fe2d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
