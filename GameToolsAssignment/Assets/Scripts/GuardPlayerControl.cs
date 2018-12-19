@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GuardPlayerControl : MonoBehaviour {
-    private Animator m_anim;
-    private MindControl m_cntrl;
+    [SerializeField] private Animator m_anim;
+    [SerializeField] private MindControl m_cntrl;
     [SerializeField] private AudioSource m_gunSFX;
-    void Start()
-    {
-        m_cntrl = GetComponent<MindControl>();
-        m_anim = GetComponent<Animator>();
-    }
+    
     //Player input
     public void Move(float turn, float forward)
     {
@@ -20,6 +16,10 @@ public class GuardPlayerControl : MonoBehaviour {
                 m_anim.SetFloat("Turn", turn);
                 m_anim.SetFloat("Forward", forward);
             }
+        else
+        {
+
+        }
         }
     //Gun firing while controlling
     private void Update()
