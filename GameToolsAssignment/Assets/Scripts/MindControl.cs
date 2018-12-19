@@ -13,7 +13,7 @@ public class MindControl : MonoBehaviour {
     private ParticleSystem m_part;
     private Animator m_playerAnim;
     public GameObject m_controlledGuard;
-    [SerializeField] private Animator m_guardAnim;
+    private Animator m_guardAnim;
     private GuardPlayerControl m_guard;
     private float m_turn, m_forward;
     public static float waitTime;
@@ -31,6 +31,8 @@ public class MindControl : MonoBehaviour {
         m_playerMoveScript = player.GetComponent<PlayerMovement>();
         m_playerAnim = player.GetComponent<Animator>();
         m_guard = this.GetComponent<GuardPlayerControl>();
+        m_guardAnim = this.GetComponent<Animator>();
+        m_guardNorm = this.GetComponent<GuardNormalMovement>();
         m_guard.enabled = false;
         m_guardNorm.enabled = true;
         m_inTrigger = false;

@@ -9841,7 +9841,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 587954393}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6568f8d55d0e8f40931165ce8f27292, type: 3}
   m_Name: 
@@ -9924,11 +9924,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_guardNorm: {fileID: 0}
   m_controlledGuard: {fileID: 0}
-  m_guardAnim: {fileID: 0}
-  playerCam: {fileID: 0}
-  guardCam: {fileID: 0}
-  m_mcAudio: {fileID: 0}
-  mindControlIndMat: {fileID: 0}
+  playerCam: {fileID: 370600790}
+  guardCam: {fileID: 276045450}
+  m_mcAudio: {fileID: 1930524401}
+  mindControlIndMat: {fileID: 2100000, guid: b1d29ae75f8c26b4ab68bf75b53c24f7, type: 2}
 --- !u!95 &587954404 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 95262119437586030, guid: c2852ea9da5a52e4d9e16ae56ea1828b,
@@ -10676,7 +10675,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 679677466}
-  m_LocalRotation: {x: 2.2478676e-24, y: 0.5715549, z: 3.72867e-24, w: 0.8205639}
+  m_LocalRotation: {x: 2.247865e-24, y: 0.5715549, z: 3.72867e-24, w: 0.8205639}
   m_LocalPosition: {x: -0.25999784, y: 2.39, z: 1.2000017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -23898,7 +23897,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1540146311}
-  m_LocalRotation: {x: -2.5464148e-16, y: 0.11675661, z: 2.9935825e-17, w: 0.9931606}
+  m_LocalRotation: {x: 2.546415e-16, y: 0.11675661, z: -2.9935815e-17, w: 0.9931606}
   m_LocalPosition: {x: -3.1151867, y: 1.8070061, z: -8.972515}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
